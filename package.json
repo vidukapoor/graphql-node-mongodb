@@ -1,0 +1,37 @@
+{
+  "name": "graphql-nodejs-mongodb",
+  "version": "1.0.0",
+  "description": "Introduction to GraphQL in nodeJS with MongoDB",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxpou/graphql-nodejs-mongodb"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "mocha tests/* --timeout=3000",
+    "coverage": "nyc npm test",
+    "report": "nyc report",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "db": "npm run loadBeers && npm run loadBreweries",
+    "loadBeers": "mongoimport --db graphql --collection beers --jsonArray beers.json --drop",
+    "loadBreweries": "mongoimport --db graphql --collection breweries --jsonArray breweries.json --drop"
+  },
+  "dependencies": {
+    "babel": "^5.8.23",
+    "express": "^4.13.3",
+    "express-graphql": "^0.5.4",
+    "graphql": "^0.7.0",
+    "mongoose": "^4.3.5"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-http": "^1.0.0",
+    "coveralls": "^2.11.14",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "nyc": "^8.3.2",
+    "nodemon": "^1.14.11"
+  }
+}
