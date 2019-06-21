@@ -1,6 +1,7 @@
 import {
   GraphQLList,
   GraphQLID,
+  GraphQLObjectType,
   GraphQLNonNull,
   GraphQLString
 } from 'graphql';
@@ -10,16 +11,22 @@ import userType from '../../types/user';
 import UserModel from '../../../models/user.modal';
 
 export default {
-  type: new GraphQLList(userType),
+  type: userType,
   args: {
     email: {
       name: 'email',
-      type: GraphQLString
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    password: {
+      name: 'password',
+      type: new GraphQLNonNull(GraphQLString)
     }
   },
   resolve(root, params, ctx, options) {
+    const { password } = params;
+    // generate the hash password for validation
     return UserModel
-      .find(params)
+      .findOne(params)
       .exec();
   }
 };
