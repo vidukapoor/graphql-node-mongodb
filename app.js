@@ -1,12 +1,13 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import mongoose from 'mongoose';
-mongoose.Promise = global.Promise;
 
 import schema from './graphql';
+import allRoutes from './server/routes'
+
+mongoose.Promise = global.Promise;
 
 var app = express();
-const allRoutes = require('./server/routes');
 app.use(allRoutes);
 
 // GraphqQL server route

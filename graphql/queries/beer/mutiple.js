@@ -31,7 +31,6 @@ export default {
         orderBy = params.orderBy;
         delete params.orderBy;
     }
-
     return BeerModel
       .find(params)
       .populate('brewery')
@@ -39,3 +38,13 @@ export default {
       .exec();
   }
 };
+
+/**
+ * @description
+ */
+// {
+//   beers{
+//     name
+//     _id
+//   }
+// }
