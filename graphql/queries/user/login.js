@@ -31,10 +31,22 @@ export default {
   }
 };
 
+/********************************* examples ****************************** */
 // {
 //   login(email:"user2@mail.com"){
 //     name
 //     email
 //     _id
 //   }
+// }
+
+// query loginQuery($email: String!, $password: String!){
+//   login(email: $email, password: $password){
+//     name
+//   }
+// }
+
+// {
+//   "email":"user1@mail.com",
+//   "password":"userpassword"
 // }

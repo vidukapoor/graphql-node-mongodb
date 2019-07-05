@@ -16,6 +16,9 @@ export default new GraphQLInputObjectType({
     },
     password: {
       type: GraphQLString
+    },
+    old_password: {
+      type: GraphQLString
     }
   }
 });
