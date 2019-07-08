@@ -5,6 +5,7 @@ import {
 
 import userInputType from '../../types/user/user-input';
 import UserModel from '../../../models/user.modal';
+import utils from '../../../server/utils';
 
 export default {
   type: GraphQLBoolean,
@@ -17,7 +18,9 @@ export default {
   async resolve(root, params, options) {
     // need to add encryption
     const { data: { email, password, new_password } }= params; // match password b4 updating
-    const updateUser = await UserModel.findOneAndUpdate({ email, password }, { $set: {password: new_password}});
+    const _password = utils.generateHash(password)
+    const _new_password = utils.generateHash(new_password)
+    const updateUser = await UserModel.findOneAndUpdate({ email, password: _password }, { $set: { password: _new_password } });
     if (!updateUser) {
       throw new Error('Please validate email and password');
     }

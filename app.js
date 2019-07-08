@@ -8,7 +8,7 @@ const cors = require('cors');
 
 mongoose.Promise = global.Promise;
 
-var app = express();
+const app = express();
 
 app.use(express.json());
 app.use(cors());
@@ -18,19 +18,19 @@ app.use(logger('dev'));
 app.use('/graphql', graphqlHTTP(req => ({
   schema,
   pretty: true,
-  graphiql: true
+  graphiql: true // false in case of production
 })));
 
 // Connect mongo database
-mongoose.connect('mongodb://localhost/graphql');
+mongoose.connect('mongodb://localhost/savedata');
 
 app.use(allRoutes);
 // start server
 let server = app.listen(4000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+  const host = server.address().address;
+  const port = server.address().port;
 
-  console.log('GraphQL listening at http://%s:%s', host, port);
+  console.log('API server listening at http://%s:%s', host, port);
 });
 
 export default server;

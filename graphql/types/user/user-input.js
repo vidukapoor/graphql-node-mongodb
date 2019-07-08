@@ -1,9 +1,25 @@
 import {
   GraphQLInputObjectType,
   GraphQLString,
-  GraphQLFloat,
-  GraphQLID
+  GraphQLNonNull,
+  GraphQLID,
+  GraphQLList
 } from 'graphql';
+
+const userKeys = new GraphQLInputObjectType({
+  name: 'userKeys',
+  fields: {
+    exchange: {
+      type: GraphQLString
+    },
+    key: {
+      type: GraphQLString
+    },
+    secret: {
+      type: GraphQLString
+    },
+  }
+})
 
 export default new GraphQLInputObjectType({
   name: 'UserInput',
@@ -12,13 +28,16 @@ export default new GraphQLInputObjectType({
       type: GraphQLString
     },
     email: {
-      type: GraphQLString
+      type: new GraphQLNonNull(GraphQLString)
     },
     password: {
-      type: GraphQLString
+      type: new GraphQLNonNull(GraphQLString)
     },
     new_password: {
       type: GraphQLString
+    },
+    userKeys: {
+      type: new GraphQLList(userKeys)
     }
   }
 });
