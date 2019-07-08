@@ -62,15 +62,14 @@ router.post('/login', async (request, response) => {
 })
 
 router.put('/changepassword', async (request, response) => {
-  console.log(request.body)
   const payload = {
-    mutation: `mutation M($data: UserInput!){
+    mutation: `mutation M($data: UserInput!) {
       changePassword(data: $data)
     }
     `,
-    params: {data: {...request.body }}
+    params: { data: { ...request.body } }
   }
-  const data = await graphql(GraphQlModel, payload.query, '', '', payload.params)
+  const data = await graphql(GraphQlModel, payload.mutation, '', '', payload.params)
   response.status(200).json({ success: true, ff: request.body, data });
 })
 

@@ -3,7 +3,7 @@ import {
   GraphQLBoolean
 } from 'graphql';
 
-import userInputType from '../../types/user-input';
+import userInputType from '../../types/user/user-input';
 import UserModel from '../../../models/user.modal';
 
 export default {
