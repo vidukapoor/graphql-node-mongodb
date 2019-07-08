@@ -2,7 +2,7 @@ import {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLString,
-  GraphQLFloat,
+  GraphQLList,
   GraphQLID
 } from 'graphql';
 
@@ -21,6 +21,9 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString
-    }
+    },
+    // userKeys: {
+    //   type: GraphQLList
+    // }
   }
 });

@@ -4,7 +4,7 @@ const router = require('express').Router();
 
 import GraphQlModel from '../graphql/index';
 
-router.get('/hello', (req, res) => {
+router.get('/', (req, res) => {
   console.log('hello....')
   res.status(200).json({
     msg: 'hello to User Management Services',
@@ -12,7 +12,6 @@ router.get('/hello', (req, res) => {
 });
 
 router.get('/getbeers', async (req, res) => {
-  console.log('hello....');
   const query = `{
     beers{
       _id

@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+const keysSchema = new mongoose.Schema({ exchange: String, key: String, secret: String });
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -8,11 +10,15 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    lowercase: true
   },
   password: {
     type: String,
     required: true
+  },
+  userKeys: {
+    type: [keysSchema],
   },
   isActive: {
     type: Boolean,

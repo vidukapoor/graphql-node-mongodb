@@ -9,6 +9,7 @@ import {Types} from 'mongoose';
 
 import userType from '../../types/user/user';
 import UserModel from '../../../models/user.modal';
+import utils from '../../../server/utils';
 
 export default {
   type: userType,
@@ -24,7 +25,7 @@ export default {
   },
   resolve(root, params, ctx, options) {
     const { password } = params;
-    // generate the hash password for validation
+    params.password = utils.generateHash(params.password);
     return UserModel
       .findOne(params)
       .exec();

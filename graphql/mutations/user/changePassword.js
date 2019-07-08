@@ -15,7 +15,8 @@ export default {
     }
   },
   async resolve(root, params, options) {
-    const { data: { email, password, new_password } }= params;
+    // need to add encryption
+    const { data: { email, password, new_password } }= params; // match password b4 updating
     const updateUser = await UserModel.findOneAndUpdate({ email, password }, { $set: {password: new_password}});
     if (!updateUser) {
       throw new Error('Please validate email and password');

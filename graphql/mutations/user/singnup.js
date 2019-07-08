@@ -1,13 +1,15 @@
 import {
   GraphQLNonNull,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLString,
 } from 'graphql';
+import utils from '../../../server/utils';
 
 import userInputType from '../../types/user/user-input';
 import UserModel from '../../../models/user.modal';
 
 export default {
-  type: GraphQLBoolean,
+  type: GraphQLString, // replace this one with response handler
   args: {
     data: {
       name: 'data',
@@ -15,13 +17,21 @@ export default {
     }
   },
   async resolve(root, params, options) {
-    /**
-     * @todo check the user the there or not then hit the save for new record
-     */
+    const { data: { email } } = params;
     const userModel = new UserModel(params.data);
     try {
-      const response = await userModel.save();
-      return true;
+      const isExitingUser = await UserModel.findOne({ email }).exec();
+      if (!isExitingUser) {
+        userModel.password = utils.generateHash(userModel.password);
+        const response = await userModel.save();
+        if (response) {
+          return 'success';
+        } else {
+          return 'Error adding new user';
+        }
+      } else {
+        return 'user already existing';
+      }
     } catch (e) {
       throw new Error('Error adding new user');
     }
