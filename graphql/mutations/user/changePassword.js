@@ -16,11 +16,17 @@ export default {
     }
   },
   async resolve(root, params, options) {
-    // need to add encryption
-    const { data: { email, password, new_password } }= params; // match password b4 updating
+    const { data: { email, password, new_password, userKeys } } = params;
     const _password = utils.generateHash(password)
-    const _new_password = utils.generateHash(new_password)
-    const updateUser = await UserModel.findOneAndUpdate({ email, password: _password }, { $set: { password: _new_password } });
+    const _new_password = new_password ? utils.generateHash(new_password) : _password;
+    let _params = {};
+    if(!userKeys){
+      _params = { password: _new_password }
+    }else {
+      const { userKeys: _userKeys } = await UserModel.findOne({ email, password: _password }).exec() || {};
+      _params = { userKeys }
+    }
+    const updateUser = await UserModel.findOneAndUpdate({ email, password: _password }, { $set: _params });
     if (!updateUser) {
       throw new Error('Please validate email and password');
     }
