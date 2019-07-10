@@ -20,12 +20,13 @@
   },
   "dependencies": {
     "babel": "^5.8.23",
+    "cors": "^2.8.5",
     "express": "^4.13.3",
     "express-graphql": "^0.5.4",
     "graphql": "^0.7.0",
+    "lodash": "^4.17.11",
     "mongoose": "^4.3.5",
-    "morgan": "^1.9.1",
-    "cors": "^2.8.5"
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
     "chai": "^3.2.0",

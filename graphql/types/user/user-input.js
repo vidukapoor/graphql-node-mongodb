@@ -2,7 +2,7 @@ import {
   GraphQLInputObjectType,
   GraphQLString,
   GraphQLNonNull,
-  GraphQLID,
+  GraphQLEnumType,
   GraphQLList
 } from 'graphql';
 
@@ -10,7 +10,14 @@ const userKeys = new GraphQLInputObjectType({
   name: 'userKeys',
   fields: {
     exchange: {
-      type: GraphQLString
+      type: new GraphQLEnumType({
+        name: 'exchange',
+        values: {
+          KEY1: { value: "KEY1" },
+          KEY2: { value: "KEY2" },
+          KEY3: { value: "KEY3" }
+        }
+      })
     },
     key: {
       type: GraphQLString

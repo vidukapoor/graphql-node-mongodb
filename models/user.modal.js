@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const keysSchema = new mongoose.Schema({ exchange: String, key: String, secret: String });
+// enum of exchange will be here also, already added graphql
 
 const userSchema = new mongoose.Schema({
   name: {

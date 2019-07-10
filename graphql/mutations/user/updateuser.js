@@ -24,7 +24,8 @@ export default {
       _params = { password: _new_password }
     }else {
       const { userKeys: _userKeys } = await UserModel.findOne({ email, password: _password }).exec() || {};
-      _params = { userKeys }
+      const new_data = utils.mergeExchanges(_userKeys, userKeys);
+      _params = { userKeys: new_data }
     }
     const updateUser = await UserModel.findOneAndUpdate({ email, password: _password }, { $set: _params });
     if (!updateUser) {

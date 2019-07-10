@@ -63,7 +63,7 @@ router.post('/api/login', async (request, response) => {
 router.put('/api/users/update', async (request, response) => {
   const payload = {
     mutation: `mutation M($data: UserInput!) {
-      changePassword(data: $data)
+      updateuser(data: $data)
     }
     `,
     params: { data: { ...request.body } }

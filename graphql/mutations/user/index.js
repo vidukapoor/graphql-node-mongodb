@@ -1,7 +1,7 @@
 import singnup from './singnup';
-import changePassword from './changePassword';
+import updateuser from './updateuser';
 
 export default {
   singnup,
-  changePassword
+  updateuser
 };
