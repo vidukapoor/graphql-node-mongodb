@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import logger from 'morgan';
 import schema from './graphql';
 import allRoutes from './server/routes'
+import CONFIG from './server/config';
 const cors = require('cors');
 
 mongoose.Promise = global.Promise;
@@ -22,7 +23,7 @@ app.use('/graphql', graphqlHTTP(req => ({
 })));
 
 // Connect mongo database
-mongoose.connect('mongodb://localhost/savedata');
+mongoose.connect(`mongodb://${CONFIG.DB_USERNAME}:${CONFIG.DB_PASSWORD}@${CONFIG.MONGODB_URI}:${CONFIG.DB_PORT}/${CONFIG.DB_NAME}`);
 
 app.use(allRoutes);
 // start server

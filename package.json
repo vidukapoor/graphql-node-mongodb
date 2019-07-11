@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/maxpou/graphql-nodejs-mongodb"
+    "url": "https://github.com/vidukapoor/graphql-node-mongodb"
   },
   "scripts": {
     "start": "node index.js",
@@ -26,7 +26,8 @@
     "graphql": "^0.7.0",
     "lodash": "^4.17.11",
     "mongoose": "^4.3.5",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "dotenv": "6.2.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",

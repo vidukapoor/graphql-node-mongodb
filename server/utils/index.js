@@ -1,9 +1,11 @@
 
 import crypto from 'crypto';
 import { findIndex } from 'lodash';
+import CONFIG from '../config';
+
 class UtilsClass {
   getSecret() {
-    return "super-secret";
+    return CONFIG.PASSWORD_SECRET;
   }
   generateHash(query) {
     return crypto.createHmac("sha256", this.getSecret())
