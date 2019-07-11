@@ -33,7 +33,7 @@ export default {
         return 'user already existing';
       }
     } catch (e) {
-      throw new Error('Error adding new user');
+      return 'Error adding new user!';
     }
   }
 };
