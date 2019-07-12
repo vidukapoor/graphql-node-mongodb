@@ -23,6 +23,7 @@ export default {
       const isExitingUser = await UserModel.findOne({ email }).exec();
       if (!isExitingUser) {
         userModel.password = utils.generateHash(userModel.password);
+        userModel.userKeys = userModel.userKeys && userModel.userKeys.length ? utils.mergeExchanges([], userModel.userKeys) : [];
         const response = await userModel.save();
         if (response) {
           return 'success';
