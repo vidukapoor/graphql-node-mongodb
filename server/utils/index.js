@@ -17,6 +17,8 @@ class UtilsClass {
     let merged = oldArray;
     newArray.forEach(element => {
       const indexAvailable = findIndex(oldArray, { exchange: element.exchange });
+      element.key = this.encrypt(element.key);
+      element.secret = this.encrypt(element.secret);
       if (indexAvailable !== -1) {
         merged[indexAvailable] = element;
       } else {

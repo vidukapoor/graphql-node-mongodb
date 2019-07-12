@@ -39,7 +39,7 @@ export default {
  * @description mutation query
  */
 // mutation M($data: UserInput!){
-//   changePassword(data: $data)
+//   updateuser(data: $data)
 // }
 
 // {

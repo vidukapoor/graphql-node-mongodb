@@ -13,17 +13,18 @@ const userKeys = new GraphQLInputObjectType({
       type: new GraphQLEnumType({
         name: 'exchange',
         values: {
-          KEY1: { value: "KEY1" },
-          KEY2: { value: "KEY2" },
-          KEY3: { value: "KEY3" }
+          KEYONE: { value: "KEY1" },
+          KEYTWO: { value: "KEY2" },
+          KEYTHREE: { value: "KEY3" }
         }
       })
+      // type: GraphQLString
     },
     key: {
-      type: GraphQLString
+      type: new GraphQLNonNull(GraphQLString)
     },
     secret: {
-      type: GraphQLString
+      type: new GraphQLNonNull(GraphQLString)
     },
   }
 })
