@@ -22,8 +22,8 @@ export default new GraphQLObjectType({
     name: {
       type: GraphQLString
     },
-    // userKeys: {
-    //   type: GraphQLList
-    // }
+    token: {
+      type: GraphQLString
+    }
   }
 });

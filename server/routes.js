@@ -51,12 +51,13 @@ router.post('/api/login', async (request, response) => {
         name
         userid: _id
         email
+        token
       }
     }
     `,
     params: {...request.body }
   }
-  const data = await graphql(GraphQlModel, payload.query, '', '', payload.params)
+  const data = await graphql(GraphQlModel, payload.query, '', request, payload.params)
   response.status(200).json({ success: true, ff: request.body, data });
 })
 

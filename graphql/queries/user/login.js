@@ -23,12 +23,16 @@ export default {
       type: new GraphQLNonNull(GraphQLString)
     }
   },
-  resolve(root, params, ctx, options) {
+  async resolve(root, params, ctx, options) {
+    // console.log('options...', ctx.headers) // hear we will get the auth headers { #tested both @rest and graphql }
     const { password } = params;
-    params.password = utils.generateHash(params.password);
-    return UserModel
-      .findOne(params)
-      .exec();
+    params.password = utils.generateHash(password);
+    const userdata = await UserModel.findOne(params);
+    if (userdata) {
+      userdata.token = utils.generateHash(userdata.password); /** @todo need to generate the token here dynamically  */
+      /** @todo save generated toke in db */
+      return userdata;
+    }
   }
 };
 
