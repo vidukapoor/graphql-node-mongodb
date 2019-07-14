@@ -5,7 +5,6 @@ import {
   GraphQLNonNull,
   GraphQLString
 } from 'graphql';
-import {Types} from 'mongoose';
 
 import userType from '../../types/user/user';
 import UserModel from '../../../models/user.modal';

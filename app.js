@@ -7,6 +7,8 @@ import allRoutes from './server/routes'
 import CONFIG from './server/config';
 const cors = require('cors');
 
+require('./server/utils/crobJob');
+
 mongoose.Promise = global.Promise;
 
 const app = express();

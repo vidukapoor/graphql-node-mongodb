@@ -1,11 +1,9 @@
 import _ from 'lodash';
 import { graphql } from 'graphql';
 import UserModel from '../../models/user.modal';
-import OpenOrderModal from '../../models/openOrder.model';
 import utils from './index';
 import { mutation } from '../../graphql/mutations/openorder/add';
 import GraphQlModel from '../../graphql/index';
-import { open } from 'inspector';
 
 class BinanceWrapper {
   async getBinanceUsers() {
