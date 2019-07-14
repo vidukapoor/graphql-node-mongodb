@@ -2,6 +2,7 @@
 import crypto from 'crypto';
 import { findIndex } from 'lodash';
 import CONFIG from '../config';
+import BinanceClass from './binance';
 
 class UtilsClass {
   constructor() {
@@ -47,3 +48,4 @@ class UtilsClass {
 }
 const utils = new UtilsClass();
 export default utils;
+export { BinanceClass }
