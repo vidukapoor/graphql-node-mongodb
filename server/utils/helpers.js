@@ -1,11 +1,14 @@
 import crypto from 'crypto';
 import { findIndex } from 'lodash';
 import CONFIG from '../config';
+import request from './request';
+import resolvers from '../resolvers';
 
 class UtilsClass {
   constructor() {
     this.PASSWORD_SECRET = CONFIG.PASSWORD_SECRET;
     this.DATA_SECRET = CONFIG.DATA_SECRET;
+    this.FETCH_TRADE_SIGNAL = CONFIG.FETCH_TRADE_SIGNAL;
   }
   generateHash(query) {
     return crypto.createHmac("sha256", this.PASSWORD_SECRET)
@@ -42,6 +45,40 @@ class UtilsClass {
     let dec = decipher.update(text, 'hex', 'utf8')
     dec += decipher.final('utf8');
     return dec;
+  }
+
+  async getTradeSignals() {
+    // urls will be from the .env file
+    const tradingUrls = this.FETCH_TRADE_SIGNAL ? this.FETCH_TRADE_SIGNAL.split(',') : [];
+    tradingUrls.forEach( async function (element, index){
+      const dataFetch = await request.get({ url: element, data: {} });
+      const filterData = utils.filterTradeSignal(dataFetch.gekkodata, element);
+      filterData.forEach(element=>{
+        const response = resolvers.addSignals(element)
+      })
+    });
+  }
+
+  filterTradeSignal(tradeData, reference) {
+    const data = Object.keys(tradeData).filter((item) => (tradeData[item].logType === 'papertrader'))
+      .map((item) => {
+        const { config: { 
+          watch: { currency, asset, exchange },
+          tradingAdvisor: { method: strategy },
+          paperTrader: { simulationBalance: { stakeBalance: stakeAmount } }
+          }, events: { tradeCompleted: trades = [] }
+        } = tradeData[item];
+        return {
+          currency,
+          asset,
+          exchange,
+          strategy,
+          reference,
+          stakeAmount,
+          trades
+        }
+      })
+    return data;
   }
 }
 const utils = new UtilsClass();

@@ -10,4 +10,5 @@ module.exports = {
   DB_PORT: process.env.DB_PORT,
   DATA_SECRET: process.env.DATA_SECRET,
   PASSWORD_SECRET: process.env.PASSWORD_SECRET,
+  FETCH_TRADE_SIGNAL: process.env.FETCH_TRADE_SIGNAL,
 };

@@ -34,7 +34,7 @@ class BinanceWrapper {
       try {
         if (!error) {
           const data = { userId, list: openOrders }
-          const response = await graphql(GraphQlModel, mutation, '', '', { data })
+          const response = await graphql(GraphQlModel, mutation, '', '', { data }) // move this to resolvers
           console.log('putOpenOrders......', response)
         } else {
           throw (error.body)

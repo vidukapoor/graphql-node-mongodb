@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-var brewerySchema = new mongoose.Schema({
+var openOderSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true,
@@ -10,6 +10,10 @@ var brewerySchema = new mongoose.Schema({
     type: Array,
     required: true
   },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-export default mongoose.model('OpenOrder', brewerySchema);
+export default mongoose.model('OpenOrder', openOderSchema);
