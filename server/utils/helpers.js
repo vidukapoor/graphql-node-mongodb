@@ -30,6 +30,19 @@ class UtilsClass {
     return merged;
   }
 
+  mergePortfolio(oldArray, newArray) {
+    let merged = oldArray;
+    newArray.forEach(element => {
+      const indexAvailable = findIndex(oldArray, { asset: element.asset.toUpperCase(), currency: element.currency.toUpperCase() });
+      if (indexAvailable !== -1) {
+        merged[indexAvailable] = element;
+      } else {
+        merged.push(element);
+      }
+    });
+    return merged;
+  }
+
   /**
    * @see https://lollyrock.com/posts/nodejs-encryption/
    */

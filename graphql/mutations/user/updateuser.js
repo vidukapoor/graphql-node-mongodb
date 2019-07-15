@@ -15,17 +15,18 @@ export default {
       type: new GraphQLNonNull(userInputType)
     }
   },
+  // as of now only one of the things will get updated portfolio || userkeys
   async resolve(root, params, options) {
-    const { data: { email, password, new_password, userKeys } } = params;
+    const { data: { email, password, new_password, userKeys, portfolio } } = params;
     const _password = utils.generateHash(password)
     const _new_password = new_password ? utils.generateHash(new_password) : _password;
     let _params = {};
+    const { userKeys: _userKeys, portfolio: _portfolio } = await UserModel.findOne({ email, password: _password }).exec() || {};
     if (userKeys && userKeys.length) {
-      const { userKeys: _userKeys } = await UserModel.findOne({ email, password: _password }).exec() || {};
       const new_data = utils.mergeExchanges(_userKeys, userKeys);
       _params = { userKeys: new_data }
-    } else if (symbols && symbols.length) {
-      _params = { password: _new_password }
+    } else if (portfolio && portfolio.length) {
+      _params = { portfolio: utils.mergePortfolio(_portfolio, portfolio) }
     } else {
       _params = { password: _new_password }
     }

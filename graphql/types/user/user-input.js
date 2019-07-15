@@ -3,7 +3,8 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLEnumType,
-  GraphQLList
+  GraphQLList, 
+  GraphQLBoolean
 } from 'graphql';
 
 const userKeys = new GraphQLInputObjectType({
@@ -36,6 +37,9 @@ const portfolioArray = new GraphQLInputObjectType({
     },
     currency: {
       type: new GraphQLNonNull(GraphQLString)
+    },
+    isActive: {
+      type: new GraphQLNonNull(GraphQLBoolean)
     },
   }
 });

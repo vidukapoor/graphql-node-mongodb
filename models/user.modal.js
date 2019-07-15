@@ -4,8 +4,9 @@ const keysSchema = new mongoose.Schema({ exchange: String, key: String, secret: 
 // enum of exchange will be here also, already added graphql
 
 const portfolioSchema = new mongoose.Schema({ 
-  asset: String, 
-  currency: String,
+  asset: { type: String, uppercase: true }, 
+  currency: { type: String, uppercase: true },
+  isActive: Boolean
 }, { _id : false });
 
 
