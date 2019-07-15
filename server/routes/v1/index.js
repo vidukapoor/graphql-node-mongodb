@@ -1,17 +1,10 @@
 import { graphql } from 'graphql';
+import GraphQlModel from '../../../graphql/index';
+import utils from '../../utils';
 
 const router = require('express').Router();
 
-import GraphQlModel from '../graphql/index';
-
-router.get('/', (req, res) => {
-  console.log('hello....')
-  res.status(200).json({
-    msg: 'hello to User Management Services',
-  });
-});
-
-router.get('/api/getbeers', async (req, res) => {
+router.get('/getbeers', async (req, res) => {
   const query = `{
     beers{
       _id
@@ -29,7 +22,7 @@ router.get('/api/getbeers', async (req, res) => {
   });
 });
 
-router.post('/api/register', async (request, response) => {
+router.post('/register', async (request, response) => {
   const payload = {
     mutation: `
     mutation M($data: UserInput!) {
@@ -44,7 +37,7 @@ router.post('/api/register', async (request, response) => {
   response.status(200).json({ success: true, ff: request.body, data });
 })
 
-router.post('/api/login', async (request, response) => {
+router.post('/login', async (request, response) => {
   const payload = {
     query: `query Q($email: String!, $password: String!){
       login(email: $email, password: $password){
@@ -61,7 +54,7 @@ router.post('/api/login', async (request, response) => {
   response.status(200).json({ success: true, ff: request.body, data });
 })
 
-router.put('/api/users/update', async (request, response) => {
+router.put('/users/update', async (request, response) => {
   const payload = {
     mutation: `mutation M($data: UserInput!) {
       updateuser(data: $data)
@@ -70,6 +63,11 @@ router.put('/api/users/update', async (request, response) => {
     params: { data: { ...request.body } }
   }
   const _response = await graphql(GraphQlModel, payload.mutation, '', '', payload.params)
+  response.status(200).json({ success: true, ff: request.body, response: _response });
+})
+
+router.put('/order/signal', async (request, response) => {
+  const _response = await utils.getTradeSignals();
   response.status(200).json({ success: true, ff: request.body, response: _response });
 })
 

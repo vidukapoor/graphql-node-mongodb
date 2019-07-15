@@ -48,7 +48,7 @@ class UtilsClass {
   }
 
   async getTradeSignals() {
-    // urls will be from the .env file
+    // moving this one to the api level
     const tradingUrls = this.FETCH_TRADE_SIGNAL ? this.FETCH_TRADE_SIGNAL.split(',') : [];
     tradingUrls.forEach( async function (element, index){
       const dataFetch = await request.get({ url: element, data: {} });
