@@ -18,7 +18,6 @@ const userKeys = new GraphQLInputObjectType({
           KEYTHREE: { value: "KEY3" }
         }
       })
-      // type: GraphQLString
     },
     key: {
       type: new GraphQLNonNull(GraphQLString)
@@ -28,6 +27,18 @@ const userKeys = new GraphQLInputObjectType({
     },
   }
 })
+
+const portfolioArray = new GraphQLInputObjectType({
+  name: 'userPortfolio',
+  fields: {
+    asset: {
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    currency: {
+      type: new GraphQLNonNull(GraphQLString)
+    },
+  }
+});
 
 export default new GraphQLInputObjectType({
   name: 'UserInput',
@@ -46,6 +57,9 @@ export default new GraphQLInputObjectType({
     },
     userKeys: {
       type: new GraphQLList(userKeys)
+    },
+    portfolio: {
+      type: new GraphQLList(portfolioArray)
     }
   }
 });

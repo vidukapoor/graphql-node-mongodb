@@ -20,12 +20,14 @@ export default {
     const _password = utils.generateHash(password)
     const _new_password = new_password ? utils.generateHash(new_password) : _password;
     let _params = {};
-    if(!userKeys){
-      _params = { password: _new_password }
-    }else {
+    if (userKeys && userKeys.length) {
       const { userKeys: _userKeys } = await UserModel.findOne({ email, password: _password }).exec() || {};
       const new_data = utils.mergeExchanges(_userKeys, userKeys);
       _params = { userKeys: new_data }
+    } else if (symbols && symbols.length) {
+      _params = { password: _new_password }
+    } else {
+      _params = { password: _new_password }
     }
     const updateUser = await UserModel.findOneAndUpdate({ email, password: _password }, { $set: _params });
     if (!updateUser) {
