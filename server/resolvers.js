@@ -17,9 +17,7 @@ class ResolversWrappers {
         data: { ...variables }
       }
     };
-  
     const data = await graphql(GraphQlModel, payload.mutation, '', '', payload.params);
-    console.log('data..console.', data);
     return data
   }
 }

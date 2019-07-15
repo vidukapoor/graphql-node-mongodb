@@ -1,7 +1,6 @@
 import crypto from 'crypto';
 import { findIndex } from 'lodash';
 import CONFIG from '../config';
-import request from './request';
 import resolvers from '../resolvers';
 
 class UtilsClass {
@@ -60,38 +59,33 @@ class UtilsClass {
     return dec;
   }
 
-  async getTradeSignals() {
-    // moving this one to the api level
-    const tradingUrls = this.FETCH_TRADE_SIGNAL ? this.FETCH_TRADE_SIGNAL.split(',') : [];
-    tradingUrls.forEach( async function (element, index){
-      const dataFetch = await request.get({ url: element, data: {} });
-      const filterData = utils.filterTradeSignal(dataFetch.gekkodata, element);
-      filterData.forEach(element=>{
-        const response = resolvers.addSignals(element)
-      })
-    });
+  async getTradeSignals(data) {
+    const filterData = utils.filterTradeSignal(data, 'api');
+    if (Object.keys(filterData).length) {
+      const response = await resolvers.addSignals(filterData)
+      return response;
+    }
   }
 
   filterTradeSignal(tradeData, reference) {
-    const data = Object.keys(tradeData).filter((item) => (tradeData[item].logType === 'papertrader'))
-      .map((item) => {
-        const { config: { 
-          watch: { currency, asset, exchange },
-          tradingAdvisor: { method: strategy },
-          paperTrader: { simulationBalance: { stakeBalance: stakeAmount } }
-          }, events: { tradeCompleted: trades = [] }
-        } = tradeData[item];
-        return {
-          currency,
-          asset,
-          exchange,
-          strategy,
-          reference,
-          stakeAmount,
-          trades
-        }
-      })
-    return data;
+    if (tradeData.logType === 'papertrader') {
+      const { config: {
+        watch: { currency, asset, exchange },
+        tradingAdvisor: { method: strategy },
+        paperTrader: { simulationBalance: { stakeBalance: stakeAmount } }
+      }, events: { tradeCompleted: trades = [] }
+      } = tradeData;
+      return {
+      currency,
+        asset,
+        exchange,
+        strategy,
+        reference,
+        stakeAmount,
+        trades
+      }
+    }
+    return {};
   }
 }
 const utils = new UtilsClass();

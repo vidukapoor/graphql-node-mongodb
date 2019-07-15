@@ -67,8 +67,8 @@ router.put('/users/update', async (request, response) => {
 })
 
 router.put('/order/signal', async (request, response) => {
-  const _response = await utils.getTradeSignals();
-  response.status(200).json({ success: true, ff: request.body, response: _response });
+  const _response = await utils.getTradeSignals(request.body);
+  response.status(200).json({ success: true, response: _response });
 })
 
 module.exports = router;
