@@ -1,3 +1,5 @@
+
+
 import {
   GraphQLInputObjectType,
   GraphQLString,
@@ -20,7 +22,7 @@ const portfolioInput = new GraphQLInputObjectType({
   }
 });
 
-const trades = new GraphQLInputObjectType({
+const tradesInput = new GraphQLInputObjectType({
   name: 'tradeList',
   fields: {
     id: {
@@ -59,7 +61,7 @@ const trades = new GraphQLInputObjectType({
   }
 });
 
-export default new GraphQLInputObjectType({
+const SignalInput= new GraphQLInputObjectType({
   name: 'SignalInput',
   fields: {
     asset: {
@@ -81,7 +83,12 @@ export default new GraphQLInputObjectType({
       type: new GraphQLNonNull(GraphQLString)
     },
     trades: {
-      type: new GraphQLList(trades)
+      type: new GraphQLList(tradesInput)
     }
   }
 });
+
+export default SignalInput;
+
+// put this to the trade inputType
+export { tradesInput };

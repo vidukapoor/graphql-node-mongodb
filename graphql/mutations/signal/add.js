@@ -16,6 +16,7 @@ export default {
     }
   },
   async resolve (root, params, options) {
+    // updating as of now all the data
     const signalModel = new SignalModal(params.data);
     const value = {};
     const _signalModel = Object.assign(value, signalModel._doc);

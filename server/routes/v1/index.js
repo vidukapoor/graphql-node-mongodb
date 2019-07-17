@@ -67,7 +67,9 @@ router.put('/users/update', async (request, response) => {
 })
 
 router.put('/order/signal', async (request, response) => {
-  const _response = await utils.getTradeSignals(request.body);
+  const { antsSignal, currentSignal } = request.body;
+  // const _tradeResponse = await utils.tradeSignal(currentSignal);
+  const _response = await utils.putTradeSignals(antsSignal);
   response.status(200).json({ success: true, response: _response });
 })
 

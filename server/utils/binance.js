@@ -7,7 +7,7 @@ import GraphQlModel from '../../graphql/index';
 
 class BinanceWrapper {
   async getBinanceUsers() {
-    const users = await UserModel.find({ isActive: true }).exec();
+    const users = await UserModel.find({ isActive: true }).exec(); // move this to users controller
     users.forEach((item) => {
       const binanceData = _.find(item.userKeys, { exchange: 'KEY1' }) || {};
       if (Object.keys(binanceData).length) {
@@ -17,7 +17,7 @@ class BinanceWrapper {
       }
     })
   }
-
+  
   getBinanceInstance(key, secret) {
     const binance = require('node-binance-api')().options({
       APIKEY: key,

@@ -20,6 +20,12 @@ class ResolversWrappers {
     const data = await graphql(GraphQlModel, payload.mutation, '', '', payload.params);
     return data
   }
+
+  tradeSignals(variables){
+    const payload = {
+      
+    }
+  }
 }
 const resolvers = new ResolversWrappers();
 export default resolvers;
