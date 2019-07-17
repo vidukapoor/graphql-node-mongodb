@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const portfolioSchema = new mongoose.Schema({ 
-  asset: Number, 
-  currency: Number,
+  asset: Number,  // this is  number only
+  currency: Number, // this is  number only
 }, { _id : false });
 
 const tradeSchema = new mongoose.Schema({ 
@@ -13,7 +13,7 @@ const tradeSchema = new mongoose.Schema({
   amount: Number,
   price: String,
   balance: Number,
-  date: String,
+  date: Date,
   effectivePrice: String,
   feePercent: Number,
   portfolio: portfolioSchema,

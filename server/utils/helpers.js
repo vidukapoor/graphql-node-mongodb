@@ -59,8 +59,8 @@ class UtilsClass {
     return dec;
   }
 
-  async getTradeSignals(data) {
-    const filterData = utils.filterTradeSignal(data, 'api');
+  async putTradeSignals(antsSignal) {
+    const filterData = utils.filterTradeSignal(antsSignal, 'api');
     if (Object.keys(filterData).length) {
       const response = await resolvers.addSignals(filterData)
       return response;
