@@ -23,7 +23,11 @@ export default {
     // trigger the binance class with predefined values
     const currency = 'BNB';
     const asset = 'NULLS';
-    const users = await User.getUser({ isActive: true });
+    const users = await User.getProjectedUser([
+      { $match: { isActive: true, 'portfolio.isActive': true } },
+      { $unwind: "$portfolio" },
+      { $match: { "portfolio.isActive": true, "portfolio.asset": currency, "portfolio.currency": asset } }
+    ]);
     console.log('users......', users);
     const tradeModel = true;
     if (!tradeModel) {

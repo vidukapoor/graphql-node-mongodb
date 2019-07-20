@@ -11,6 +11,11 @@ class UserModelWrapper {
     const users = await UserModel.find(query).exec();
     return users;
   }
+  
+  async getProjectedUser(query){
+    const users = await UserModel.aggregate(query).exec();
+    return users;
+  }
 }
 
 
