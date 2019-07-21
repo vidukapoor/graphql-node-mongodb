@@ -16,7 +16,6 @@ const tradeConfigSchema = new mongoose.Schema({
   user_ids: {
     type: Array, // if this is null means its been applicable to all the users in the system
     required: true,
-    unique: true
   },
   round_config: {
     type: [round_config_schema],

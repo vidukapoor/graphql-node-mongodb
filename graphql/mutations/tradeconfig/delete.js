@@ -1,7 +1,8 @@
 import {
   GraphQLNonNull,
   GraphQLBoolean,
-  GraphQLString
+  GraphQLString,
+  GraphQLID
 } from 'graphql';
 
 import TradeConfig from '../../../server/controllers/tradeconfig.controller';
@@ -11,23 +12,17 @@ import tradeConfigInputType from '../../types/trade/tradeconfig-input';
 export default {
   type: GraphQLString,
   args: {
-    data: {
-      name: 'data',
-      type: new GraphQLNonNull(tradeConfigInputType)
+    trade_id: {
+      name: 'trade_id',
+      type: new GraphQLNonNull(GraphQLID)
     }
   },
   async resolve(root, params, options) {
     const loginUser = await User.getUserByToken(options.headers);
     if (loginUser && loginUser.userType === 'super_admin') {
-      const _params = TradeConfig.tradeConfigInstance(params.data);
-      const value = {};
-      const _configModel = Object.assign(value, _params._doc);
-      delete _configModel['_id']   
-      const { asset, currency } = _configModel;
-      const matchParams = { asset, currency }
-      const activetrades = await TradeConfig.upsetConfig(matchParams, _configModel);
+      const activetrades = await TradeConfig.deleteById(params.trade_id);
       if (!activetrades) {
-        throw new Error('Error creating new config');
+        throw new Error('Error deleting trade');
       }
       return 'success';
     } else {

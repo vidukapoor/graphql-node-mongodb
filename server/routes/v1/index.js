@@ -84,6 +84,40 @@ router.put('/trade/config', async (request, response) => {
   const _response = await graphql(GraphQlModel, payload.mutation, '', '', payload.params)
   response.status(200).json({ success: true, response: _response });
 })
+
+router.get('/trade/config', async (request, response) => {
+  const payload = {
+    query: `query M{
+      multipleTrade{
+        currency
+        user_ids
+        exposure_time
+        start_time
+        end_time
+        asset
+        currency
+        fallback_config_id
+        isActive
+        level
+      }
+    }
+    `
+  }
+  const _response = await graphql(GraphQlModel, payload.query, '', request, '')
+  response.status(200).json({ success: true, response: _response });
+})
+
+router.delete('/trade/config', async (request, response) => {
+  const payload = {
+    mutation: `mutation M($trade_id: ID!){
+      deleteTradeConfig(trade_id: $trade_id)
+    }
+    `,
+    params: { ...request.body },
+  }
+  const _response = await graphql(GraphQlModel, payload.mutation, '', request, payload.params)
+  response.status(200).json({ success: true, response: _response });
+})
  
 module.exports = router;
 

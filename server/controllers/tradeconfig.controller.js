@@ -15,6 +15,11 @@ class TradeConfigModelWrapper {
     const trade = await TradeConfigModel.findOneAndUpdate(matchParams, { $set: newParams }, { upsert: true, new: true });
     return trade;
   }
+  
+  async deleteById(id){
+    const trade = await TradeConfigModel.findByIdAndRemove(id);
+    return trade;
+  }
 }
 
 
