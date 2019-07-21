@@ -40,15 +40,8 @@ export default {
 };
 
 /**
- * @description mutation query
+ * @description mutation
  */
-// mutation M{
-//   singnup(data: {
-//     name:"user"
-//     email: "user1@mail.com"
-//     password:"userpassword"
-//   })
-// }
 
 // mutation M($data: UserInput!){
 //   singnup(data: $data)

@@ -28,8 +28,9 @@ export default {
     params.password = utils.generateHash(password);
     const userdata = await UserModel.findOne(params);
     if (userdata) {
-      userdata.token = utils.generateHash(userdata.password); /** @todo need to generate the token here dynamically  */
-      /** @todo save generated toke in db */
+      const createTokenHash = `${userdata.password}${userdata.email}`
+      userdata.token = utils.generateHash(createTokenHash); /** @todo need to generate the token here dynamically  */
+      await UserModel.update(params, { $push: { loginToken: userdata.token } } )
       return userdata;
     }
   }

@@ -16,6 +16,14 @@ class UserModelWrapper {
     const users = await UserModel.aggregate(query).exec();
     return users;
   }
+
+  async getUserByToken({ auth }) {
+    if(auth){
+      const user = await UserModel.findOne({ loginToken: { $in: [ auth ] } })
+      return user
+    }
+    return {};
+  }
 }
 
 

@@ -3,7 +3,7 @@ import brewery from './brewery';
 import user from './user';
 
 export default {
-  ...beer,
-  ...brewery,
+  // ...beer,
+  // ...brewery,
   ...user
 };

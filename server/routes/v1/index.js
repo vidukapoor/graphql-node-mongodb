@@ -22,7 +22,7 @@ router.get('/getbeers', async (req, res) => {
   });
 });
 
-router.post('/register', async (request, response) => {
+router.post('/user/register', async (request, response) => {
   const payload = {
     mutation: `
     mutation M($data: UserInput!) {
@@ -37,7 +37,7 @@ router.post('/register', async (request, response) => {
   response.status(200).json({ success: true, ff: request.body, data });
 })
 
-router.post('/login', async (request, response) => {
+router.post('/user/login', async (request, response) => {
   const payload = {
     query: `query Q($email: String!, $password: String!){
       login(email: $email, password: $password){
@@ -54,7 +54,7 @@ router.post('/login', async (request, response) => {
   response.status(200).json({ success: true, ff: request.body, data });
 })
 
-router.put('/users/update', async (request, response) => {
+router.put('/user/update', async (request, response) => {
   const payload = {
     mutation: `mutation M($data: UserInput!) {
       updateuser(data: $data)
@@ -73,6 +73,18 @@ router.put('/order/signal', async (request, response) => {
   response.status(200).json({ success: true, response: _response });
 })
 
+router.put('/trade/config', async (request, response) => {
+  const payload = {
+    mutation: `mutation M($data: TradeConfigInput!){
+      addTradeConfig(data: $data)
+    }
+    `,
+    params: { data: { ...request.body } }
+  }
+  const _response = await graphql(GraphQlModel, payload.mutation, '', '', payload.params)
+  response.status(200).json({ success: true, response: _response });
+})
+ 
 module.exports = router;
 
 

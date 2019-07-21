@@ -40,6 +40,12 @@ const userSchema = new mongoose.Schema({
   loginToken: {
     type: Array,
   },
+  userType: {
+    type: String,
+    enum: ['user', 'super_admin'],
+    required: true,
+    default: 'user'
+  },
   createdAt: {
     type: Date,
     default: Date.now
